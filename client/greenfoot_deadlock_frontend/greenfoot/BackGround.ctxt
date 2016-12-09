@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=BackGround
+comment0.text=\n\ Write\ a\ description\ of\ class\ setBackGround\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=BackGround()
+comment2.params=message
+comment2.target=void\ onMessage(java.lang.String)
+comment3.params=handshake
+comment3.target=void\ onOpen(org.java_websocket.handshake.ServerHandshake)
+comment4.params=code\ reason\ remote
+comment4.target=void\ onClose(int,\ java.lang.String,\ boolean)
+comment5.params=ex
+comment5.target=void\ onError(java.lang.Exception)
+comment6.params=
+comment6.target=void\ addChatFeature()
+comment7.params=
+comment7.target=void\ hideChatFeature()
+comment8.params=
+comment8.target=void\ openChatFeature()
+numComments=9

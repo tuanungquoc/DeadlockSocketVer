@@ -1,0 +1,85 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Point;
+import javax.swing.*;
+import org.json.* ;
+import org.restlet.ext.json.* ;
+import org.restlet.resource.ClientResource;
+import org.restlet.representation.Representation ;
+import org.restlet.ext.json.* ;
+import org.restlet.data.* ;
+import javax.swing.Timer;
+import java.awt.event.*;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+import java.net.URI;
+import java.net.URISyntaxException;
+ 
+public class Starter extends BackGround
+{
+
+    /**
+     * Constructor for objects of class Starter.
+     * 
+     */
+     WebSocketClient cc ;
+    ButtonCtrl btnClick;
+    TextBox txtB;
+    private static ChatWindow chatWindow = new ChatWindow();
+    private Point[] textBoxDisplaySizes = new Point[] { new Point(250, 100), new Point(140, 75), new Point(100, 50) };
+    public Starter()
+    {
+        txtB = new TextBox(new Point(250, 100), "", new Font("Helvetica", Font.PLAIN, 15));
+        addObject(txtB, 854, 69);
+        btnClick = new ButtonCtrl("Click chat", new Point(100, 23));
+        addObject(btnClick, 851, 130);
+        prepare();
+        
+        
+         try{
+            cc = new WebSocketClient( new URI( BackGround.SOCKET_CHATTING_URL" )) {
+                
+                    @Override
+                    public void onMessage( String message ) {
+                      //this will get the current number of user in the room
+                      if(Utils.isJSONValid(message)){
+                          txtB.clear();
+                          txtB.setText(message);
+                      }
+                    }
+
+                    @Override
+                    public void onOpen( ServerHandshake handshake ) {
+                      
+                    }
+
+                    @Override
+                    public void onClose( int code, String reason, boolean remote ) {
+                        
+                    }
+
+                    @Override
+                    public void onError( Exception ex ) {
+                        JFrame frame = new JFrame("Sign in");
+                        JOptionPane.showMessageDialog(frame,ex.toString());
+                    }
+                };
+                cc.connect();
+                
+       } catch ( Exception ex ) {}
+    }
+    
+    public void prepare()
+    {
+        addObject(new PlayerButton(), 554, 537);
+        addObject(new Logo(),556,357);
+    }
+    
+    public void act() {
+      if(btnClick.wasClicked()){
+          cc.send("test");
+      }
+    }
+}
+
